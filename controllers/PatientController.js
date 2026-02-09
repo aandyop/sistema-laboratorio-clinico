@@ -3,17 +3,17 @@ const db = require('../models/db');
 class PatientController {
     
     listar(req, res) {
-        let listaPacientes = [...db.pacientes];
+    let listaPacientes = [...db.pacientes];
 
-        if (req.query.orden === 'recientes') {
-            listaPacientes.sort((a, b) => b.fechaIngreso - a.fechaIngreso);
-            listaPacientes = listaPacientes.slice(0, 5);
-        }
+    if (req.query.orden === 'recientes') {
+        listaPacientes.sort((a, b) => b.fechaIngreso - a.fechaIngreso);
+        listaPacientes = listaPacientes.slice(0, 5);
+    }
 
-        res.json({
-            titulo: "Listado de Pacientes",
-            datos: listaPacientes
-        });
+    res.render('patients', { 
+        titulo: "Panel de Gestión de Pacientes", 
+        pacientes: listaPacientes 
+    });
     }
 
     verPorId(req, res) {

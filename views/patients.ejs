@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Laboratorio - Pacientes</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+<body>
+    <header>
+        <h1><%= titulo %></h1>
+        <nav>
+            <a href="/pacientes?orden=recientes">Ver últimos 5</a> | 
+            <a href="/pacientes">Ver todos</a>
+        </nav>
+    </header>
+
+    <main>
+        <table border="1" style="width: 100%; margin-top: 20px; border-collapse: collapse;">
+            <thead>
+                <tr style="background-color: #f2f2f2;">
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Cédula</th>
+                    <th>Edad</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% pacientes.forEach(function(paciente) { %>
+                    <tr>
+                        <td><%= paciente.id %></td>
+                        <td><%= paciente.nombre %></td>
+                        <td><%= paciente.cedula %></td>
+                        <td><%= paciente.edad %> años</td>
+                        <td>
+                            <a href="/pacientes/<%= paciente.id %>">Ver Historia Clínica</a>
+                        </td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    </main>
+</body>
+</html>

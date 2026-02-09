@@ -17,14 +17,19 @@ class PatientController {
     }
 
     verPorId(req, res) {
-        const idBuscado = parseInt(req.params.id);
-        const paciente = db.pacientes.find(p => p.id === idBuscado);
+    const idBuscado = parseInt(req.params.id);
+    const paciente = db.pacientes.find(p => p.id === idBuscado);
 
-        if (paciente) {
-            res.json(paciente);
-        } else {
-            res.status(404).json({ mensaje: "Paciente no encontrado" });
-        }
+    if (paciente) {
+        const examenesDelPaciente = db.examenes.filter(e => e.pacienteId === idBuscado);
+        
+        res.render('patient-detail', { 
+            paciente: paciente, 
+            examenes: examenesDelPaciente 
+        });
+    } else {
+        res.status(404).render('error', { message: 'Paciente no encontrado', error: {status: 404} });
+    }
     }
 }
 

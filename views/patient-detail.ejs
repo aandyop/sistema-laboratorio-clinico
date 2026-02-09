@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Detalle - <%= paciente.nombre %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+<body>
+    <a href="/pacientes">← Volver al listado</a>
+    
+    <h1>Historia Clínica</h1>
+    <section style="background: #eef2f3; padding: 15px; border-radius: 8px;">
+        <p><strong>Nombre:</strong> <%= paciente.nombre %></p>
+        <p><strong>Cédula:</strong> <%= paciente.cedula %></p>
+        <p><strong>Edad:</strong> <%= paciente.edad %> años</p>
+        <p><strong>Fecha de Ingreso:</strong> <%= paciente.fechaIngreso.toLocaleDateString() %></p>
+    </section>
+
+    <hr>
+
+    <h3>Exámenes Realizados</h3>
+    <% if (examenes.length > 0) { %>
+        <ul>
+            <% examenes.forEach(function(examen) { %>
+                <li style="margin-bottom: 10px;">
+                    <strong><%= examen.tipo %></strong>: <%= examen.resultado %> 
+                    <br><small>Fecha: <%= examen.fecha.toLocaleDateString() %></small>
+                </li>
+            <% }); %>
+        </ul>
+    <% } else { %>
+        <p>Este paciente aún no tiene exámenes registrados.</p>
+    <% } %>
+</body>
+</html>

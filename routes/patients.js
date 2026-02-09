@@ -17,3 +17,12 @@ const ExamController = require('../controllers/ExamController');
 router.get('/:pacienteId/examen/nuevo', ExamController.formularioCrear);
 router.post('/examen/guardar', ExamController.guardar);
 router.delete('/:id', PatientController.eliminar);
+router.put('/:id', PatientController.actualizar);
+
+router.get('/buscar/fechas', (req, res) => {
+    const { inicio, fin } = req.query;
+    const resultados = db.examenes.filter(e => 
+        e.fecha >= new Date(inicio) && e.fecha <= new Date(fin)
+    );
+    res.json(resultados);
+});

@@ -11,7 +11,56 @@
     <section style="background: #eef2f3; padding: 15px; border-radius: 8px;">
         <p><strong>Nombre:</strong> <%= paciente.nombre %></p>
         <p><strong>Cédula:</strong> <%= paciente.cedula %></p>
-        <p><strong>Edad:</strong> <%= paciente.edad %> años</p>
+        <p>
+            <strong>Edad:</strong> 
+            <span id="edadDisplay"><%= paciente.edad %> años</span>
+            
+            <button onclick="mostrarEditor()" id="btnEditar" style="background: none; border: none; color: #007bff; cursor: pointer; font-size: 0.8em; text-decoration: underline; margin-left: 10px;">
+                (Editar)
+            </button>
+
+            <span id="editorEdad" style="display: none; margin-left: 10px;">
+                <input type="number" id="inputEdad" value="<%= paciente.edad %>" style="width: 50px; border-radius: 4px; border: 1px solid #ccc;">
+                <button onclick="actualizarEdad('<%= paciente.id %>')" style="background: #28a745; color: white; border: none; border-radius: 3px; padding: 2px 8px; cursor: pointer;">
+                    Guardar
+                </button>
+                <button onclick="ocultarEditor()" style="background: #6c757d; color: white; border: none; border-radius: 3px; padding: 2px 8px; cursor: pointer;">
+                    X
+                </button>
+            </span>
+        </p>
+
+        <script>
+            function mostrarEditor() {
+                document.getElementById('editorEdad').style.display = 'inline';
+                document.getElementById('btnEditar').style.display = 'none';
+                document.getElementById('edadDisplay').style.display = 'none';
+            }
+
+            function ocultarEditor() {
+                document.getElementById('editorEdad').style.display = 'none';
+                document.getElementById('btnEditar').style.display = 'inline';
+                document.getElementById('edadDisplay').style.display = 'inline';
+            }
+
+            function actualizarEdad(id) {
+                const edad = document.getElementById('inputEdad').value;
+                
+                fetch(`/pacientes/${id}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ edad: edad })
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if(data.success) {
+                        location.reload(); 
+                    }
+                })
+                .catch(err => alert('Error al actualizar'));
+            }
+        </script>
+        
         <p><strong>Fecha de Ingreso:</strong> <%= paciente.fechaIngreso.toLocaleDateString() %></p>
     </section>
 
@@ -46,7 +95,6 @@
     <script>
         function confirmarEliminacion(id) {
             if (confirm('¿Estás seguro? Esta acción no se puede deshacer.')) {
-                // Usamos backticks (`) para construir la URL de forma segura
                 fetch(`/pacientes/${id}`, {
                     method: 'DELETE'
                 })

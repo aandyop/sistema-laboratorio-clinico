@@ -68,6 +68,18 @@ class PatientController {
         }
     }
 
+    actualizar(req, res) {
+        const id = parseInt(req.params.id);
+        const { edad } = req.body;
+        
+        const paciente = db.pacientes.find(p => p.id === id);
+        if (paciente) {
+            paciente.edad = parseInt(edad);
+            res.json({ success: true, message: "Edad actualizada correctamente" });
+        } else {
+            res.status(404).json({ success: false, message: "Paciente no encontrado" });
+        }
+    }
 }
 
 module.exports = new PatientController();

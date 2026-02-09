@@ -24,7 +24,7 @@
             + Agregar Nuevo Examen
         </a>
     </div>
-    
+
     <% if (examenes.length > 0) { %>
         <ul>
             <% examenes.forEach(function(examen) { %>
@@ -37,5 +37,34 @@
     <% } else { %>
         <p>Este paciente aún no tiene exámenes registrados.</p>
     <% } %>
+
+    <hr>
+    <button onclick="confirmarEliminacion('<%= paciente.id %>')" style="background: #dc3545; color: white; padding: 10px; border: none; border-radius: 4px; cursor: pointer; margin-top: 20px;">
+    Eliminar Paciente y Todo su Historial
+    </button>
+
+    <script>
+        function confirmarEliminacion(id) {
+            if (confirm('¿Estás seguro? Esta acción no se puede deshacer.')) {
+                // Usamos backticks (`) para construir la URL de forma segura
+                fetch(`/pacientes/${id}`, {
+                    method: 'DELETE'
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        alert(data.message);
+                        window.location.href = '/pacientes';
+                    } else {
+                        alert('Error: ' + data.message);
+                    }
+                })
+                .catch(err => {
+                    console.error('Error:', err);
+                    alert('No se pudo conectar con el servidor para eliminar');
+                });
+            }
+        }
+    </script>
 </body>
 </html>

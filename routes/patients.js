@@ -16,3 +16,4 @@ const ExamController = require('../controllers/ExamController');
 
 router.get('/:pacienteId/examen/nuevo', ExamController.formularioCrear);
 router.post('/examen/guardar', ExamController.guardar);
+router.delete('/:id', PatientController.eliminar);

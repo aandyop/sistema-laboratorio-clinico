@@ -52,6 +52,21 @@ class PatientController {
         res.redirect('/pacientes');
     }
 
+    eliminar(req, res) {
+        const id = parseInt(req.params.id);
+
+        const indicePaciente = db.pacientes.findIndex(p => p.id === id);
+        
+        if (indicePaciente !== -1) {
+            db.pacientes.splice(indicePaciente, 1);
+
+            db.examenes = db.examenes.filter(examen => examen.pacienteId !== id);
+
+            res.json({ success: true, message: "Paciente y sus exámenes eliminados correctamente" });
+        } else {
+            res.status(404).json({ success: false, message: "Paciente no encontrado" });
+        }
+    }
 
 }
 

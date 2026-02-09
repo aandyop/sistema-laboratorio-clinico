@@ -31,6 +31,28 @@ class PatientController {
         res.status(404).render('error', { message: 'Paciente no encontrado', error: {status: 404} });
     }
     }
+
+    formularioCrear(req, res) {
+        res.render('create-patient');
+    }
+
+    guardar(req, res) {
+        const { nombre, cedula, edad } = req.body;
+
+        const nuevoPaciente = {
+            id: Date.now(),
+            nombre: nombre,
+            cedula: cedula,
+            edad: parseInt(edad),
+            fechaIngreso: new Date()
+        };
+
+        db.pacientes.push(nuevoPaciente);
+        
+        res.redirect('/pacientes');
+    }
+
+
 }
 
 module.exports = new PatientController();

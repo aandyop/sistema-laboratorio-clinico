@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Registrar Paciente</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+<body>
+    <a href="/pacientes">← Volver al listado</a>
+    <h1>Nuevo Registro de Paciente</h1>
+
+    <form action="/pacientes/guardar" method="POST" style="max-width: 400px; display: flex; flex-direction: column; gap: 10px;">
+        <label>Nombre Completo:</label>
+        <input type="text" name="nombre" required placeholder="Ej: Ana López">
+
+        <label>Cédula:</label>
+        <input type="text" name="cedula" required placeholder="Ej: 20555666">
+
+        <label>Edad:</label>
+        <input type="number" name="edad" required min="0">
+
+        <button type="submit" style="background: #28a745; color: white; padding: 10px; cursor: pointer; border: none; border-radius: 4px;">
+            Guardar Paciente
+        </button>
+    </form>
+</body>
+</html>

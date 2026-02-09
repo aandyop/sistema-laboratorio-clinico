@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Registrar Examen</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+<body>
+    <h1>Nuevo Examen para el Paciente ID: <%= pacienteId %></h1>
+
+    <form action="/pacientes/examen/guardar" method="POST" style="max-width: 400px; display: flex; flex-direction: column; gap: 10px;">
+        <input type="hidden" name="pacienteId" value="<%= pacienteId %>">
+
+        <label>Tipo de Examen:</label>
+        <select name="tipo" required>
+            <option value="Hemoglobina">Hemoglobina</option>
+            <option value="Glucosa">Glucosa</option>
+            <option value="Colesterol">Colesterol</option>
+            <option value="Orina">Análisis de Orina</option>
+        </select>
+
+        <label>Resultado:</label>
+        <input type="text" name="resultado" required placeholder="Ej: 110 mg/dL">
+
+        <button type="submit" style="background: #007bff; color: white; padding: 10px; border: none; border-radius: 4px;">
+            Registrar Resultado
+        </button>
+    </form>
+</body>
+</html>

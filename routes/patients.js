@@ -11,3 +11,8 @@ router.get('/', PatientController.listar);
 router.get('/:id', PatientController.verPorId);
 
 module.exports = router;
+
+const ExamController = require('../controllers/ExamController');
+
+router.get('/:pacienteId/examen/nuevo', ExamController.formularioCrear);
+router.post('/examen/guardar', ExamController.guardar);

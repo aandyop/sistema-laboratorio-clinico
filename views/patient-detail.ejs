@@ -17,7 +17,14 @@
 
     <hr>
 
-    <h3>Exámenes Realizados</h3>
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+        <h3>Exámenes Realizados</h3>
+        <a href="/pacientes/<%= paciente.id %>/examen/nuevo" 
+           style="background: #007bff; color: white; padding: 8px 15px; text-decoration: none; border-radius: 5px; font-weight: bold;">
+            + Agregar Nuevo Examen
+        </a>
+    </div>
+    
     <% if (examenes.length > 0) { %>
         <ul>
             <% examenes.forEach(function(examen) { %>
